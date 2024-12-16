@@ -9,16 +9,13 @@
 		"importHelpers": true,
 		"target": "es2022",
 		"module": "esnext",
-		"lib": [
-			"es2020",
-			"dom"
-		],
+		"lib": ["es2020", "dom"],
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@models/*": ["src/app/models/*"],
-			"@enums/*": ["src/app/enums/*"]
+			"@enums/*": ["lib/enums/*"],
+			"@models/*": ["lib/models/*"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
@@ -41,10 +38,7 @@
 		}
 	],
 	"compileOnSave": false,
-	"exclude": [
-		"node_modules",
-		"tmp"
-	],
+	"exclude": ["node_modules", "tmp"],
 	"angularCompilerOptions": {
 		"enableI18nLegacyMessageIdFormat": false,
 		"strictInjectionParameters": true,
