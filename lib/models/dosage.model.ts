@@ -1,4 +1,4 @@
-import { DosageUnit } from "@enums/dosage-unit.enum";
+import { DosageUnit } from "../enums/dosage-unit.enum";
 
 export interface IDosage {
 	value: number;

@@ -1,0 +1,44 @@
+<mat-card>
+	<mat-card-content>
+		<table mat-table [dataSource]="dataSource$()">
+
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.name' | translate }}</th>
+				<td mat-cell *matCellDef="let medication">
+					{{ medication.name }}
+				</td>
+				<td mat-footer-cell colspan="4" *matFooterCellDef>
+					{{ (
+						dataSource$().length === 0 && searchKey$() ?
+							'medication_list.table.not_found_message' :
+							'medication_list.table.empty_message'
+						) | translate
+					}}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="dosage">
+				<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.dosage' | translate }}</th>
+				<td mat-cell *matCellDef="let medication">
+					{{ medication.dosage | dosage }}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="frequency">
+				<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.frequency' | translate }}</th>
+				<td mat-cell *matCellDef="let medication">
+					{{ medication.frequency | frequency }}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="updatedAt">
+				<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.updated_at' | translate }}</th>
+				<td mat-cell *matCellDef="let medication">{{ medication.updatedAt | date:'dd MMMM YYYY' }}</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			<tr class="empty-table" [ngClass]="{'show-empty': dataSource$().length === 0}" mat-footer-row *matFooterRowDef="[displayedColumns[0]]"></tr>
+		</table>
+	</mat-card-content>
+</mat-card>

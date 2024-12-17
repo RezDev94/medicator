@@ -3,6 +3,6 @@ export enum DosageUnit {
 	TABLETS = 'tablets',
 	APPLICATIONS = 'applications',
 	DROPS = 'drops',
-	MILLIGRAMS = 'milligrams',
+	MILLIGRAMS = 'mg',
 	MICROGRAMS = 'micrograms'
 }

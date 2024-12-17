@@ -1,11 +1,11 @@
-import { IDosage } from "@models/dosage.model";
-import { IFrequency } from "@models/frequency.model";
+import { IDosage } from "./dosage.model";
+import { IFrequency } from "./frequency.model";
 
 export interface IMedication {
 	id: number;
 	name: string;
 	dosage: IDosage;
 	frequency: IFrequency;
-	createdAt: string;
-	updatedAt: string;
+	createdAt: Date;
+	updatedAt: Date;
 }

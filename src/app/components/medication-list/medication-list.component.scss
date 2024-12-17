@@ -1,0 +1,27 @@
+:host {
+	width: 100%;
+
+	table {
+		width: 100%;
+
+		.empty-table {
+			display: none;
+
+			td {
+				text-align: center;
+			}
+
+			&.show-empty {
+				display: table-row;
+			}
+		}
+	}
+
+	.mdc-card {
+		overflow: hidden;
+
+		.mat-mdc-card-content {
+			padding: 0;
+		}
+	}
+}
