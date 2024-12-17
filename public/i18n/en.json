@@ -11,7 +11,7 @@
 				"frequency": "Frequency",
 				"updated_at": "Last updated"
 			},
-			"not_found_message": "No medication is found!",
+			"not_found_message": "No medication was found!",
 			"empty_message": "There is no medication!"
 		}
 	},
