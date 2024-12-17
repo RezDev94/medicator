@@ -23,9 +23,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 	styleUrl: './top-bar.component.scss',
 })
 export class TopBarComponent implements OnInit {
-	fb = inject(FormBuilder);
-	searchKey$ = inject(SearchState).searchKey;
+	private fb = inject(FormBuilder);
 	private destroyRef = inject(DestroyRef);
+
+	searchKey$ = inject(SearchState).searchKey;
 
 	searchForm = this.fb.group({
 		key: this.fb.control('')
