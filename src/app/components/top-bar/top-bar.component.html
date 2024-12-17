@@ -1,0 +1,14 @@
+<p class="app-name">{{ 'top_bar.name' | translate }}</p>
+<div class="search-form-wrapper">
+	<form [formGroup]="searchForm">
+		<mat-form-field>
+			<mat-icon matPrefix>search</mat-icon>
+			<input matInput placeholder="{{ 'top_bar.search_placeholder' | translate }}" formControlName="key" />
+			@if (searchKey$()) {
+				<button matSuffix mat-icon-button (click)="searchForm.get('key')?.setValue('')">
+					<mat-icon>close</mat-icon>
+				</button>
+			}
+		</mat-form-field>
+	</form>
+</div>

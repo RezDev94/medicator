@@ -1,5 +1,6 @@
 {
-    "app": {
-        "name": "Medicator"
-    }
+	"top_bar": {
+		"name": "Medicator",
+		"search_placeholder": "Search added medications"
+	}
 }
