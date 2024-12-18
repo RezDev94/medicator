@@ -5,7 +5,7 @@
 <mat-card>
 	<mat-card-content>
 		<div class="overflow-auto">
-			<table mat-table class="w-full" [dataSource]="dataSource$()">
+			<table mat-table class="w-full" [dataSource]="dataSource">
 
 				<ng-container matColumnDef="name">
 					<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.name' | translate }}</th>
@@ -14,7 +14,7 @@
 					</td>
 					<td mat-footer-cell colspan="4" *matFooterCellDef>
 						{{ (
-							dataSource$().length === 0 && searchKey$() ?
+							medicationData$().length === 0 && searchKey$() ?
 								'medication_list.table.not_found_message' :
 								'medication_list.table.empty_message'
 							) | translate
@@ -52,8 +52,11 @@
 
 				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-				<tr class="empty-table" [ngClass]="{'show-empty': dataSource$().length === 0}" mat-footer-row *matFooterRowDef="[displayedColumns[0]]"></tr>
+				<tr class="empty-table" [ngClass]="{'show-empty': medicationData$().length === 0}" mat-footer-row *matFooterRowDef="[displayedColumns[0]]"></tr>
 			</table>
+
+			<mat-paginator [pageSizeOptions]="[10]" [length]="medicationData$().length" showFirstLastButtons>
+  			</mat-paginator>
 		</div>
 	</mat-card-content>
 </mat-card>

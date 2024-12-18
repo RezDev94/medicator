@@ -1,5 +1,5 @@
-import { Component, computed, DestroyRef, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { MatTable, MatTableModule } from '@angular/material/table';
+import { AfterViewInit, Component, DestroyRef, effect, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { SearchState } from '../../states/search.state';
 import { IMedication } from '@models/medication.model';
@@ -13,8 +13,7 @@ import { AddMedicationComponent } from '../add-medication/add-medication.compone
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DataStoreService } from '../../services/data-store/data-store.service';
 import { MatIconModule } from '@angular/material/icon';
-
-const MEDICATION_DATA = signal<IMedication[]>([]);
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
 	selector: 'app-medication-list',
@@ -26,30 +25,47 @@ const MEDICATION_DATA = signal<IMedication[]>([]);
 		FrequencyPipe,
 		TranslateModule,
 		MatButtonModule,
-		MatIconModule
+		MatIconModule,
+		MatPaginatorModule
 	],
 	templateUrl: './medication-list.component.html',
 	styleUrl: './medication-list.component.scss',
 })
-export class MedicationListComponent implements OnInit {
-	@ViewChild(MatTable) table!: MatTable<IMedication>;
+export class MedicationListComponent implements OnInit, AfterViewInit {
+	@ViewChild(MatPaginator) paginator!: MatPaginator;
 
-	searchKey$ = inject(SearchState).searchKey;
 	dialog = inject(MatDialog);
 	dataStore = inject(DataStoreService);
 	private destroyRef = inject(DestroyRef);
 
-	dataSource$ = computed(() => this.searchKey$() ? this.searchMedication() : MEDICATION_DATA());
+	searchKey$ = inject(SearchState).searchKey;
+	medicationData$ = signal<IMedication[]>([]);
 
+	dataSource = new MatTableDataSource<IMedication>(this.medicationData$());
 	displayedColumns: string[] = ['name', 'dosage', 'frequency', 'updatedAt', 'action'];
 
+	constructor() {
+		effect(() => {
+			if (this.searchKey$()) {
+				this.dataSource.data = this.searchMedication();
+			} else {
+				this.dataSource.data = this.medicationData$();
+			}
+		});
+	}
+
 	ngOnInit(): void {
-		MEDICATION_DATA.set(this.dataStore.get());
+		this.medicationData$.set(this.dataStore.get());
+		this.dataSource.data = this.medicationData$();
+	}
+
+	ngAfterViewInit(): void {
+		this.dataSource.paginator = this.paginator;
 	}
 
 	private searchMedication(): IMedication[] {
 		// case insensitive search
-		return MEDICATION_DATA().filter((med) => med.name.toLowerCase().indexOf(this.searchKey$().toLowerCase()) !== -1);
+		return this.medicationData$().filter((med) => med.name.toLowerCase().indexOf(this.searchKey$().toLowerCase()) !== -1);
 	}
 
 	addMedication(): void {
@@ -64,15 +80,15 @@ export class MedicationListComponent implements OnInit {
 		).subscribe(result => {
 			if (result) {
 				this.dataStore.store(result);
-				MEDICATION_DATA.set(this.dataStore.get());
-				this.table.renderRows();
+				this.medicationData$.set(this.dataStore.get());
+				this.dataSource.data = this.medicationData$();
 			}
 		});
 	}
 
 	removeMedication(id: number): void {
 		this.dataStore.remove(id);
-		MEDICATION_DATA.set(this.dataStore.get());
-		this.table.renderRows();
+		this.medicationData$.set(this.dataStore.get());
+		this.dataSource.data = this.medicationData$();
 	}
 }
