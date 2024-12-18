@@ -1,3 +1,7 @@
+<div class="add-medication">
+	<button mat-raised-button (click)="addMedication()">{{ 'medication_list.add_medication_btn' | translate }}</button>
+</div>
+
 <mat-card>
 	<mat-card-content>
 		<table mat-table [dataSource]="dataSource$()">
@@ -34,6 +38,15 @@
 			<ng-container matColumnDef="updatedAt">
 				<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.updated_at' | translate }}</th>
 				<td mat-cell *matCellDef="let medication">{{ medication.updatedAt | date:'dd MMMM YYYY' }}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="action">
+				<th mat-header-cell *matHeaderCellDef>{{ 'medication_list.table.columns.action' | translate }}</th>
+				<td mat-cell *matCellDef="let medication">
+					<button mat-icon-button (click)="removeMedication(medication.id)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</td>
 			</ng-container>
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
