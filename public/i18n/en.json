@@ -9,14 +9,39 @@
 				"name": "Medication",
 				"dosage": "Dosage",
 				"frequency": "Frequency",
-				"updated_at": "Last updated"
+				"updated_at": "Last updated",
+				"action": "Action"
 			},
 			"not_found_message": "No medication was found!",
 			"empty_message": "There is no medication!"
-		}
+		},
+		"add_medication_btn": "Add medication"
+	},
+	"add_medication": {
+		"title": "Add medication",
+		"fields": {
+			"name": "Medication name",
+			"dosage": "Dosage",
+			"unit": "Unit",
+			"frequency": "Frequency",
+			"days": "Days",
+			"time": "Time",
+			"times": "Times",
+			"time_placeholder": "Pick a time"
+		},
+		"add_time": "+ Add time"
 	},
 	"phrases": {
 		"every_day": "Every day",
-		"at": "at"
+		"at": "at",
+		"add": "Add",
+		"cancel": "Cancel"
+	},
+	"validations": {
+		"required": "{{ field }} is required",
+		"minLength": "{{ field }} must be at least {{ length }} characters long",
+		"maxLength": "{{ field }} must be at last {{ length }} characters long",
+		"positive": "{{ field }} must be positive",
+		"similar": "{{ field }} cannot be similar"
 	}
 }
