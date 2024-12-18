@@ -21,6 +21,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 	],
 	templateUrl: './top-bar.component.html',
 	styleUrl: './top-bar.component.scss',
+	host: {
+		'class': 'flex flex-col gap-[20px] justify-between items-center md:flex-row'
+	}
 })
 export class TopBarComponent implements OnInit {
 	private fb = inject(FormBuilder);

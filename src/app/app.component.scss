@@ -1,8 +1,5 @@
 :host {
 	.main-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 40px 160px;
+		@apply flex flex-col items-center px-[20px] py-[40px] md:px-[160px];
 	}
 }

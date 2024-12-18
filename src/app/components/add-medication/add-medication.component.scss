@@ -1,6 +1,6 @@
 :host {
 	mat-form-field {
-		width: 100%;
+		@apply w-full;
 	}
 
 	.frequency-section {
@@ -8,6 +8,14 @@
 
 		.frequency-title {
 			@apply absolute top-[-12px] left-[20px] bg-[var(--mat-sys-surface)] px-[10px];
+		}
+	}
+
+	mat-button-toggle-group {
+		@apply flex-col md:flex-row;
+
+		.mat-button-toggle-appearance-standard+.mat-button-toggle-appearance-standard {
+			@apply border-l-0 border-r-0 border-t border-t-[var(--mat-sys-outline)] md:border-t-0 md:border-l md:border-l-[var(--mat-sys-outline)];
 		}
 	}
 }

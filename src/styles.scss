@@ -3,11 +3,10 @@
 @tailwind utilities;
 
 body {
-	margin: 0;
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
+	@apply m-0 font-[Roboto];
 
 	.mat-mdc-form-field-error-wrapper {
-		padding: 0;
+		@apply p-0;
 	}
 
 	.mat-mdc-dialog-content {
@@ -18,7 +17,7 @@ body {
 	input[type='number']::-webkit-inner-spin-button,
 	input[type='number']::-webkit-outer-spin-button {
 		-webkit-appearance: none;
-		margin: 0;
+		@apply m-0;
 	}
 
 	/* Hide spinner buttons in Firefox */

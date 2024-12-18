@@ -1,34 +1,35 @@
 :host {
-	width: 100%;
+	@apply w-full;
 
 	table {
-		width: 100%;
+		@apply w-full;
 
 		.empty-table {
-			display: none;
+			@apply hidden;
 
 			td {
-				text-align: center;
+				@apply text-center;
 			}
 
 			&.show-empty {
-				display: table-row;
+				@apply table-row;
 			}
+		}
+
+		.mat-mdc-header-cell, .mat-mdc-cell {
+			@apply whitespace-nowrap;
 		}
 	}
 
 	.mdc-card {
-		overflow: hidden;
+		@apply overflow-hidden;
 
 		.mat-mdc-card-content {
-			padding: 0;
+			@apply p-0;
 		}
 	}
 
 	.add-medication {
-		display: flex;
-		width: 100%;
-		justify-content: flex-end;
-		margin-bottom: 30px;
+		@apply flex w-full justify-end mb-[30px];
 	}
 }
