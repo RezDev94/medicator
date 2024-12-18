@@ -1,6 +1,34 @@
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+	.mat-mdc-form-field-error-wrapper {
+		padding: 0;
+	}
+
+	.mat-mdc-dialog-content {
+		max-height: 80vh;
+	}
+
+	/* Hide spinner buttons in Chrome, Edge, and Safari */
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Hide spinner buttons in Firefox */
+	input[type='number'] {
+		-moz-appearance: textfield;
+	}
+}
 
 :root {
 	--top-bar-background-color: #470e48;
 	--top-bar-text-color: #fff;
+	--mat-sys-body-small-line-height: 30px;
 }
