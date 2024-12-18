@@ -1,0 +1,94 @@
+<h2 mat-dialog-title>{{ 'add_medication.title' | translate }}</h2>
+<form [formGroup]="addMedicationForm" (ngSubmit)="submitAddMedication()">
+	<mat-dialog-content>
+		<mat-form-field>
+			<mat-label>{{ 'add_medication.fields.name' | translate }}</mat-label>
+			<input matInput placeholder="{{ 'add_medication.fields.name' | translate }}" formControlName="name" />
+
+			@if (addMedicationForm.get('name')?.invalid) {
+				<mat-error>{{ addMedicationForm.get('name') | validation:('add_medication.fields.name' | translate) }}</mat-error>
+			}
+		</mat-form-field>
+		<div class="flex gap-x-[10px]" formGroupName="dosage">
+			<div class="w-2/3">
+				<mat-form-field>
+					<mat-label>{{ 'add_medication.fields.dosage' | translate }}</mat-label>
+					<input matInput type="number" placeholder="{{ 'add_medication.fields.dosage' | translate }}" formControlName="value" />
+
+					@if (addMedicationForm.get('dosage.value')?.invalid) {
+						<mat-error>{{ addMedicationForm.get('dosage.value') | validation:('add_medication.fields.dosage' | translate) }}</mat-error>
+					}
+				</mat-form-field>
+			</div>
+			<div class="w-1/3">
+				<mat-form-field>
+					<mat-label>{{ 'add_medication.fields.unit' | translate }}</mat-label>
+					<mat-select formControlName="unit">
+						@for (unit of dosageUnits; track unit.key) {
+							<mat-option [value]="unit.value">{{ unit.key }}</mat-option>
+						}
+					</mat-select>
+
+					@if (addMedicationForm.get('dosage.unit')?.invalid) {
+						<mat-error>{{ addMedicationForm.get('dosage.unit') | validation:('add_medication.fields.unit' | translate) }}</mat-error>
+					}
+				</mat-form-field>
+			</div>
+		</div>
+		<mat-divider />
+		<div class="frequency-section" formGroupName="frequency">
+			<span class="frequency-title">{{ 'add_medication.fields.frequency' | translate }}</span>
+
+			<p class="mb-[10px] font-bold">{{ 'add_medication.fields.days' | translate }}</p>
+			<mat-button-toggle-group name="fontStyle" [multiple]="true" [hideMultipleSelectionIndicator]="true">
+				<mat-button-toggle value="all" [checked]="isEveryDay$()" (change)="onSelectionChange($event)">{{ 'phrases.every_day' | translate }}</mat-button-toggle>
+				@for (day of frequencyDay; track day.key) {
+					<mat-button-toggle [value]="day.value" [checked]="selectedDays$().includes(day.value)" (change)="onSelectionChange($event)">{{ day.key }}</mat-button-toggle>
+				}
+			</mat-button-toggle-group>
+
+			<div class="mat-mdc-form-field-subscript-wrapper h-[30px]">
+				@if (!!(addMedicationForm.get('frequency.day') && addMedicationForm.get('frequency.day')?.invalid && (addMedicationForm.get('frequency.day')?.touched || (isFormSubmitted$())))) {
+					<mat-error>{{ addMedicationForm.get('frequency.day') | validation:('add_medication.fields.days' | translate) }}</mat-error>
+				}
+			</div>
+
+			<p class="font-bold">{{ 'add_medication.fields.time' | translate }}</p>
+			<div class="flex flex-wrap" formArrayName="times">
+				@for (time of frequencyTimes.controls; track time) {
+					<div class="flex w-1/2">
+						<mat-form-field>
+							<mat-label>{{ 'add_medication.fields.time_placeholder' | translate }}</mat-label>
+							<mat-timepicker #picker/>
+							<input matInput [matTimepicker]="picker" [formControlName]="$index">
+							<mat-timepicker-toggle matIconSuffix [for]="picker"/>
+
+							@if (addMedicationForm.get('frequency.times.' + $index)?.invalid) {
+								<mat-error>{{ addMedicationForm.get('frequency.times.' + $index) | validation:('add_medication.fields.time' | translate) }}</mat-error>
+							}
+						</mat-form-field>
+						@if (frequencyTimes.controls.length > 1) {
+							<button mat-icon-button type="button" class="mt-[8px]" (click)="removeTime($index)">
+								<mat-icon>close</mat-icon>
+							</button>
+						}
+					</div>
+				}
+			</div>
+
+			@if (frequencyTimes.controls.length < 5) {
+				<button mat-button type="button" (click)="addTime()">{{ 'add_medication.add_time' | translate }}</button>
+			}
+
+			<div class="mat-mdc-form-field-subscript-wrapper h-[30px]">
+				@if (!!(addMedicationForm.get('frequency.times') && addMedicationForm.get('frequency.times')?.invalid && (addMedicationForm.get('frequency.times')?.touched || (isFormSubmitted$())))) {
+					<mat-error>{{ addMedicationForm.get('frequency.times') | validation:('add_medication.fields.times' | translate) }}</mat-error>
+				}
+			</div>
+		</div>
+	</mat-dialog-content>
+	<mat-dialog-actions>
+		<button mat-button>{{ 'phrases.add' | translate }}</button>
+		<button mat-button mat-dialog-close type="button">{{ 'phrases.cancel' | translate }}</button>
+	</mat-dialog-actions>
+</form>

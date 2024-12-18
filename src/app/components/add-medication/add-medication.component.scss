@@ -1,0 +1,13 @@
+:host {
+	mat-form-field {
+		width: 100%;
+	}
+
+	.frequency-section {
+		@apply mt-[30px] border border-[var(--mat-sys-outline)] rounded-[4px] relative px-[15px] py-[20px] pb-0;
+
+		.frequency-title {
+			@apply absolute top-[-12px] left-[20px] bg-[var(--mat-sys-surface)] px-[10px];
+		}
+	}
+}
