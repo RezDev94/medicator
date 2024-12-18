@@ -15,7 +15,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@enums/*": ["lib/enums/*"],
-			"@models/*": ["lib/models/*"]
+			"@models/*": ["lib/models/*"],
+			"@utils/*": ["lib/utils/*"]
 		},
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
