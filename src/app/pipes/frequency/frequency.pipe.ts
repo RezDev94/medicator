@@ -18,7 +18,7 @@ export class FrequencyPipe implements PipeTransform {
 	 */
 	transform(frequency: IFrequency): string {
 		const day = Array.isArray(frequency.day) ? frequency.day.join(', ') : this.translateService.instant('phrases.every_day');
-		const time = frequency.time.join(', ');
+		const time = frequency.times.join(', ');
 
 		return `
 			${day}
