@@ -20,10 +20,6 @@ export class FrequencyPipe implements PipeTransform {
 		const day = Array.isArray(frequency.day) ? frequency.day.join(', ') : this.translateService.instant('phrases.every_day');
 		const time = frequency.times.join(', ');
 
-		return `
-			${day}
-			${this.translateService.instant('phrases.at')}
-			${time}
-		`;
+		return `${day} ${this.translateService.instant('phrases.at')} ${time}`;
 	}
 }
