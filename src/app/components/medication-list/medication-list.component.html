@@ -14,7 +14,7 @@
 					</td>
 					<td mat-footer-cell colspan="4" *matFooterCellDef>
 						{{ (
-							medicationData$().length === 0 && searchKey$() ?
+							dataSource.data.length === 0 && searchKey$() ?
 								'medication_list.table.not_found_message' :
 								'medication_list.table.empty_message'
 							) | translate
@@ -52,7 +52,7 @@
 
 				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-				<tr class="empty-table" [ngClass]="{'show-empty': medicationData$().length === 0}" mat-footer-row *matFooterRowDef="[displayedColumns[0]]"></tr>
+				<tr class="empty-table" [ngClass]="{'show-empty': dataSource.data.length === 0}" mat-footer-row *matFooterRowDef="[displayedColumns[0]]"></tr>
 			</table>
 
 			<mat-paginator [pageSizeOptions]="[10]" [length]="medicationData$().length" showFirstLastButtons>
